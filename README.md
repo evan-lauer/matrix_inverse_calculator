@@ -36,3 +36,4 @@ Once the determinant formula for each matrix entry is found, a new matrix is pop
 1. Add a web interface for operation [1].
 2. Split `matrix_inverse_web.cpp` into two files--one for operation [1] and another for [2]. This would greatly boost the speed of operation [2], which is much less computationally intense.
 3. Compile to .wasm instead of .js
+4. Figure out how to use git with cPanel hosting for true web version control
