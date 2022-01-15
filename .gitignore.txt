@@ -1,0 +1,7 @@
+# Ignore compilation files
+
+*.exe
+*.ilk
+*.obj
+*.pdb
+.vscode/
