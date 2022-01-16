@@ -289,12 +289,14 @@ int main()
     
 
     vector<vector<tuple<string*,double>>*>* matrix = new vector<vector<tuple<string*, double>>*>();
-    cout<<"dimension: ";
+    cout<<"Square matrix dimension (must be an integer >= 3): ";
     int dimension;
     cin>>dimension;
+    if (dimension < 3) { cout<< "\nDimension must be an integer >= 3.\n"; exit(-2); }
     for (int i = 0; i < dimension; i++)
     {
         vector<tuple<string*,double>>* new_row = new vector<tuple<string*,double>>();
+        cout<< "Row " + to_string(i + 1) + ":\n";
         for (int j = 0; j < dimension; j++)
         {
             cout<< *get_entry_name(i,j) + ": ";
@@ -302,13 +304,13 @@ int main()
             cin >> val;
             string* name = get_entry_name(i,j);
             new_row->push_back(make_tuple(name, val));
-
         }
+        cout<< "\n";
         matrix->push_back(new_row);
     }
     
     vector<vector<tuple<string*,double>>*>* inverse_matrix = inverse(matrix);
-    if (!inverse_matrix) throw "Error-matrix has no inverse";
+    if (!inverse_matrix) { cout<< "\nMatrix has no inverse.\n"; exit(-1); }
     for (int i = 0; i <dimension;i++)
     {
         for(int j = 0;j<dimension;j++)
