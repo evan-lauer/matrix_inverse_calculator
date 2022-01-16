@@ -21,6 +21,39 @@ class Matrix
     }
 };
 
+
+/**
+ * @brief Handles index arithmetic for 2d->1d array.
+ * 
+ * @param size int 
+ * @param row int  2d index
+ * @param col int  2d index
+ * @return int     1d index
+ */
+int calculate_index(int size, int row, int col) { return (row * size) + col; }
+
+/**
+ * @brief Creates and returns minor matrix at (row, col)
+ * 
+ * @param m Matrix*
+ * @return Matrix* 
+ */
+Matrix* get_minor_matrix(Matrix* m, int row, int col)
+{
+    Matrix* minor_matrix = new Matrix(m->size - 1);
+    for (int i = 0; i < m->size; ++i)
+    {
+        if (i == row) continue; // skip row
+        for (int j = 0; j < m->size; ++j)
+        {
+            if (j == col) continue; // skip col
+            int index_1d = calculate_index(m->size, i, j);
+            minor_matrix->matrix.push_back(m->matrix.at(index_1d));
+        }
+    }
+    return minor_matrix;
+}
+
 /**
  * @brief Calculates determinant of matrix m.
  * 
@@ -29,7 +62,22 @@ class Matrix
  */
 double matrix_determinant(Matrix* m)
 {
+    if (m->size == 2) return (m->matrix.at(0) * m->matrix.at(3)) - (m->matrix.at(1) * m->matrix.at(2));
 
+    double determinant = 0;
+    for (int i = 0; i < m->size; ++i) // Cofactor expansion along 1st row
+    {
+        Matrix* minor_matrix = get_minor_matrix(m, 0, i);
+        double minor_matrix_determinant = matrix_determinant(minor_matrix);
+        if (i % 2 == 1)
+        {
+            determinant += -1 * minor_matrix_determinant;
+        } else
+        {
+            determinant += minor_matrix_determinant;
+        }
+    }
+    return determinant;
 }
 
 /**
@@ -50,20 +98,22 @@ void transpose_matrix(Matrix* m)
  */
 Matrix* matrix_inverse(Matrix* m)
 {
-
+    Matrix* matrix_inverse = new Matrix(m->size);
+    for (int i = 0; i < m->size; ++i)
+    {
+        for (int j = 0; j < m->size; ++j)
+        {
+            double entry = matrix_determinant(get_minor_matrix(m, i, j));
+            if (i + j % 2 == 1) entry *= -1;
+            matrix_inverse->matrix.push_back(entry);
+        }
+    }
+    transpose_matrix(matrix_inverse);
+    return matrix_inverse;
 }
 
 
 
-/**
- * @brief Handles index arithmetic for 2d->1d array.
- * 
- * @param size int 
- * @param row int  2d index
- * @param col int  2d index
- * @return int     1d index
- */
-int calculate_index(int size, int row, int col) { return (row * size) + col; }
 
 /**
  * @brief Gets the value at (row, col).
@@ -105,5 +155,6 @@ Matrix* populate_matrix()
 int main()
 {
     Matrix* m = populate_matrix();
+    Matrix* m_inverse = matrix_inverse(m);
     return 0;
 };
