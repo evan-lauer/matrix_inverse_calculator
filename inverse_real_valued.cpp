@@ -32,6 +32,17 @@ class Matrix
  */
 int calculate_index(int size, int row, int col) { return (row * size) + col; }
 
+
+/**
+ * @brief Gets the value at (row, col).
+ * 
+ * @param m Matrix*
+ * @param row int
+ * @param col int
+ * @return double 
+ */
+double matrix_get(Matrix* m, int row, int col) { return m->matrix.at(calculate_index(m->size, row, col)); }
+
 /**
  * @brief Creates and returns minor matrix at (row, col)
  * 
@@ -87,7 +98,18 @@ double matrix_determinant(Matrix* m)
  */
 void transpose_matrix(Matrix* m)
 {
-
+    for (int i = 0; i < m->size; ++i)
+    {
+        for (int j = 0; j < m->size; ++j)
+        {
+            int index_1d = calculate_index(m->size,i,j);
+            int index_1d_swap = calculate_index(m->size,j,i);
+            double val = matrix_get(m, i, j);
+            double val_swap = matrix_get(m, j, i);
+            m->matrix[index_1d] = val_swap;
+            m->matrix[index_1d_swap] = val;
+        }
+    }
 }
 
 /**
@@ -115,15 +137,6 @@ Matrix* matrix_inverse(Matrix* m)
 
 
 
-/**
- * @brief Gets the value at (row, col).
- * 
- * @param m Matrix*
- * @param row int
- * @param col int
- * @return double 
- */
-double matrix_get(Matrix* m, int row, int col) { return m->matrix.at(calculate_index(m->size, row, col)); }
 
 
 /**
