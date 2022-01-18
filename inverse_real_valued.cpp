@@ -80,12 +80,13 @@ double matrix_determinant(Matrix* m)
     {
         Matrix* minor_matrix = get_minor_matrix(m, 0, i);
         double minor_matrix_determinant = matrix_determinant(minor_matrix);
+        double entry = matrix_get(m,0,i);
         if (i % 2 == 1)
         {
-            determinant += -1 * minor_matrix_determinant;
+            determinant += (-1 * minor_matrix_determinant) * entry;
         } else
         {
-            determinant += minor_matrix_determinant;
+            determinant += (minor_matrix_determinant) * entry;
         }
     }
     return determinant;
@@ -100,7 +101,7 @@ void transpose_matrix(Matrix* m)
 {
     for (int i = 0; i < m->size; ++i)
     {
-        for (int j = 0; j < m->size; ++j)
+        for (int j = i; j < m->size; ++j)
         {
             int index_1d = calculate_index(m->size,i,j);
             int index_1d_swap = calculate_index(m->size,j,i);
@@ -121,13 +122,14 @@ void transpose_matrix(Matrix* m)
 Matrix* matrix_inverse(Matrix* m)
 {
     Matrix* matrix_inverse = new Matrix(m->size);
+    double det = matrix_determinant(m);
     for (int i = 0; i < m->size; ++i)
     {
         for (int j = 0; j < m->size; ++j)
         {
             double entry = matrix_determinant(get_minor_matrix(m, i, j));
             if (i + j % 2 == 1) entry *= -1;
-            matrix_inverse->matrix.push_back(entry);
+            matrix_inverse->matrix.push_back(entry/det);
         }
     }
     transpose_matrix(matrix_inverse);
