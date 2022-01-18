@@ -173,3 +173,22 @@ int main()
     Matrix* m_inverse = matrix_inverse(m);
     return 0;
 };
+
+extern "C"
+{
+
+const char* export_as_str(Matrix* m)
+{
+    string str = "";
+    for (int i = 0; i < m->size; ++i)
+    {
+        for (int j = 0; j < m->size; ++j)
+        {
+            str += to_string(matrix_get(m, i, j)) + ",";
+        }
+        str += "\n,";
+    }
+    return str.c_str();
+}
+
+}
