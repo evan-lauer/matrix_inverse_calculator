@@ -7,7 +7,9 @@ This project is an online calculator which achieves two objectives: [1] Calculat
 
 To test the code in C++, compile and run `matrix_inverse_web.cpp`. The `main` method of this function has a bare-bones command-line interface which facilitates rapid testing (as opposed to hard-coding 2d matrices). This interface will solve for both [1] and [2].
 
-To see the code in-action in a web calculator, visit [my blog](https://evanlauer.sites.carleton.edu){:target="_blank"} (currently under construction). This interface currently only allows for [2].
+To see the code in-action in a web calculator, visit %md <a href="https://evanlauer.sites.carleton.edu" target="_blank">my blog</a>
+
+[my blog](https://evanlauer.sites.carleton.edu){:target="_blank"} (currently under construction). This interface currently only allows for [2].
 
 ## The math
 Finding the inverse of a matrix can be a useful operation in linear algebra.
