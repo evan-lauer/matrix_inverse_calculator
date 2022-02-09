@@ -157,13 +157,13 @@ void pretty_print_matrix(Matrix* m)
  * @param dimension int  Dimension of a square matrix
  * @return Matrix*       Strings representing closed-form inverse equations
  */
-Matrix* matrix_inverse_closed_form(int size)
+Matrix* matrix_inverse_closed_form(int dimension)
 {
-    Matrix* matrix = populate_matrix(size);
-    Matrix* matrix_inverse_closed_form = new Matrix(size);
-    for (int i = 0; i < size; ++i)
+    Matrix* matrix = populate_matrix(dimension);
+    Matrix* matrix_inverse_closed_form = new Matrix(dimension);
+    for (int i = 0; i < dimension; ++i)
     {
-        for (int j = 0; j < size; ++j)
+        for (int j = 0; j < dimension; ++j)
         {
             Matrix* minor_matrix = get_minor_matrix(matrix, i, j);
             matrix_inverse_closed_form->matrix.push_back(matrix_determinant_closed_form(minor_matrix));
@@ -172,16 +172,14 @@ Matrix* matrix_inverse_closed_form(int size)
     return matrix_inverse_closed_form;
 }
 
-int main()
-{
-    Matrix* inverse_closed_form = matrix_inverse_closed_form(3);
-    pretty_print_matrix(inverse_closed_form);
-    return 1;
-}
-
-extern "C"
-{
-
+/**
+ * @brief Returns the given matrix as an encoded string for wasm/JS interaction.
+ * 
+ * @example (1,2,3),(4,5,6),(7,7,7) is encoded as "1,2,3,\n,4,5,6,\n,7,7,7,\n,"
+ * 
+ * @param m 
+ * @return const char* 
+ */
 const char* export_as_str(Matrix* m)
 {
     string str = "";
@@ -189,11 +187,30 @@ const char* export_as_str(Matrix* m)
     {
         for (int j = 0; j < m->size; ++j)
         {
-            str += matrix_get(m, i, j) + ",";
+            str += matrix_get(m, i, j) + ","; // PROBLEM!!!!!! BIG STRING ALERT!!! WHATCHA GONNA DO ABOUT THAT?>???????
         }
         str += "\n,";
     }
     return str.c_str();
 }
 
+extern "C"
+{
+    const char* matrix_inverse_closed_form_JS_interact(int dimension)
+    {
+        Matrix* m = matrix_inverse_closed_form(dimension);
+        return export_as_str(m);
+    }
+
+    const char* matrix_determinant_closed_form_JS_interact(int dimension)
+    {
+        Matrix* m = populate_matrix(dimension);
+        return matrix_determinant_closed_form(m).c_str();
+    }
+}
+
+int main()
+{
+    const char* output = matrix_inverse_closed_form_JS_interact(4);
+    return 1;
 }

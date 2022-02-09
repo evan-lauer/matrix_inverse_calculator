@@ -4,13 +4,35 @@
 <head>
     <meta charset="utf-8">
     <title>Matrix Inverse Calculator</title>
-    <link href="style.css" rel="stylesheet" />
+    <link href="/repositories/matrix_inverse_calculator/matrix_inverse_calculator.css" rel="stylesheet">
+    <link href="../sites.carleton_home/base_styles.css"rel="stylesheet"><!--<link href="/repositories/sites.carleton_home/base_styles.css" rel="stylesheet">-->
     <script type="text/javascript" src="matrix_inverse_web2.js"></script>
     <script>
         matrixInverse = Module.cwrap('inverse_from_input_string', 'string', ['string']); </script>
 </head>
 
 <body>
+    <body>
+        <h1>Hi, I'm Evan Lauer.</h1>
+        <h2>This is my website.</h2>
+        <nav>
+            <ul>
+                <li> <a class="btn" href="index.html">Home</a> </li>
+                <li> <a class="btn" href="blog.html">Blog</a> </li>
+                <li> <div class="dropdown">
+                        <a class="dropBtn" id="selected">Code Projects</a>
+                        <div class="dropContent">
+                            <a id="selected" href="/index.html">Matrix Inverse Calculator</a> <!--Soon replace path with public_html/repositories/matrix_inverse_calculator/matrix_inverse_calculator.html-->
+                            <a href="poker.html">Poker</a>
+                        </div>
+                    </div>  
+                </li>
+                <li> <a class="btn" href="contact.html">Contact me!</a> </li>
+            </ul>
+        </nav>
+
+
+
     <div id="calculatorHeader">
         <h1>Matrix Inverse Calculator</h1>
 

@@ -19,6 +19,12 @@ class Matrix
     {
         size = _size;
     }
+
+    Matrix(int _size, vector<double> _matrix)
+    {
+        matrix = _matrix;
+        size = _size;
+    }
 };
 
 
@@ -167,17 +173,16 @@ Matrix* populate_matrix()
     return m;
 }
 
-int main()
-{
-    Matrix* m = populate_matrix();
-    Matrix* m_inverse = matrix_inverse(m);
-    return 0;
-};
 
-extern "C"
-{
-
-const char* export_as_str(Matrix* m)
+/**
+ * @brief Returns the given matrix as an encoded string for wasm/JS interaction.
+ * 
+ * @example (1,2,3),(4,5,6),(7,7,7) is encoded as "1,2,3,\n,4,5,6,\n,7,7,7,\n,"
+ * 
+ * @param m 
+ * @return const char* 
+ */
+const char* export_matrix_as_string(Matrix* m)
 {
     string str = "";
     for (int i = 0; i < m->size; ++i)
@@ -191,4 +196,55 @@ const char* export_as_str(Matrix* m)
     return str.c_str();
 }
 
+
+
+Matrix* decode_input_string(const char* matrix_str) // this method is messy. improve soon
+{
+    char delimiter = ',';
+
+    string token = "";
+
+    int dimension_counter = 0;
+
+    vector<double> matrix_as_doubles = {};
+    for ( ; *matrix_str != '\0'; matrix_str++) // iterate through const char*
+    {
+        if (*matrix_str == delimiter) // if delimiter found, convert token to double, push into double vector, reset token
+        {
+            if (token.size() == 0) // skip empty tokens (newlines)
+            {
+                continue;
+            }
+            double matrix_entry = stod(token);
+            matrix_as_doubles.push_back(matrix_entry);
+            token = "";
+        } else
+        if (*matrix_str == '\n') // if newline found, increment the dimension (tricky little algorithm to find the matrix size)
+        {
+            dimension_counter++;
+            continue;
+        } else                   // if neither newline nor delimiter, add char to the token.
+        {
+            token = token + *matrix_str;
+        }
+    }
+    return new Matrix(dimension_counter, matrix_as_doubles);
 }
+
+extern "C"
+{
+    const char* matrix_inverse_JS_interact(const char* matrix_str)
+    {
+        Matrix* matrix = decode_input_string(matrix_str);
+        Matrix* inverse = matrix_inverse(matrix);
+        return export_matrix_as_string(inverse);
+    }
+}
+
+int main()
+{
+    const char* matrix_str = "1,2,3.5,\n,2.5,-1,0,\n,0,0,-1.3,\n,";
+    Matrix* matrix_m = matrix_inverse(decode_input_string(matrix_str));
+    return 1;
+}
+
