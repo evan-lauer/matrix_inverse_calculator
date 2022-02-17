@@ -17,7 +17,7 @@
         <h2>This is my website.</h2>
         <nav>
             <ul>
-                <li> <a class="btn" href="../repositories/sites.carleton_home/index.html">Home</a> </li>
+                <li> <a class="btn" href="../sites.carleton_home/index.html">Home</a> </li>
                 <li> <a class="btn" href="blog.html">Blog</a> </li>
                 <li> <div class="dropdown">
                         <a class="dropBtn" id="selected">Code Projects</a>
@@ -62,16 +62,19 @@
         <div id="footerScripts">
             <script id="createMatrix">  // Builds matrix text boxes, deletes old ones
                 function createMatrix() {
-                    for (var i = 0; i < dimension; ++i) {
-                        for (var j = 0; j < dimension; ++j) {
-                            var tBox = document.getElementById(entryStr(i, j));
-                            if (!tBox) {
-                                break;
-                            } else {
-                                tBox.parentElement.removeChild();
+                    if (document.getElementById("a11"))
+                    {
+                        for (var i = 0; i < dimension; ++i) {
+                            for (var j = 0; j < dimension; ++j) {
+                                var tBox = document.getElementById(entryStr(i, j));
+                                if (!tBox) {
+                                    break;
+                                } else {
+                                    tBox.parentElement.removeChild();
+                                }
                             }
+                            document.body.removeChild();
                         }
-                        document.body.removeChild();
                     }
 
                     // location.reload();
