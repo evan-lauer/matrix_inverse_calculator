@@ -88,7 +88,7 @@ void transpose_matrix(Matrix* m)
  */
 string matrix_determinant_closed_form_2x2(Matrix* m)
 {
-    return "(" + m->matrix.at(0) + "*" + m->matrix.at(3) + " - " + m->matrix.at(1) + "*" + m->matrix.at(2) + ")";
+    return "(" + m->matrix.at(0) + "*" + m->matrix.at(3) + "-" + m->matrix.at(1) + "*" + m->matrix.at(2) + ")";
 }
 
 /**
@@ -106,14 +106,15 @@ string matrix_determinant_closed_form(Matrix* m)
     {
         if (i % 2 == 1)
         {
-            ret += " - (" + matrix_get(m, 0, i) + ")"; // concatenates (-a11), for example
+            ret += "-(" + matrix_get(m, 0, i) + ")"; // concatenates (-a11), for example
         } else
         {
-            if (i != 0) ret += " + "; // concatenates plus sign if needed
+            if (i != 0) ret += "+"; // concatenates plus sign if needed
             ret += "(" + matrix_get(m, 0, i) + ")"; // concatenates (a11), for example
         }
         Matrix* minor_matrix = get_minor_matrix(m, 0, i);
         ret += matrix_determinant_closed_form(minor_matrix);
+        delete minor_matrix;
     }
     return ret + ")";
 }
@@ -132,7 +133,7 @@ Matrix* populate_matrix(int size)
     {
         for (int j = 0; j < size; ++j)
         {
-            m->matrix.push_back("a" + to_string(i+1) + to_string(j+1));
+            m->matrix.push_back(to_string(i+1) + to_string(j+1));
         }
     }
     return m;
@@ -167,8 +168,10 @@ Matrix* matrix_inverse_closed_form(int dimension)
         {
             Matrix* minor_matrix = get_minor_matrix(matrix, i, j);
             matrix_inverse_closed_form->matrix.push_back(matrix_determinant_closed_form(minor_matrix));
+            delete minor_matrix;
         }
     }
+    delete matrix;
     return matrix_inverse_closed_form;
 }
 
@@ -199,18 +202,25 @@ extern "C"
     const char* matrix_inverse_closed_form_JS_interact(int dimension)
     {
         Matrix* m = matrix_inverse_closed_form(dimension);
-        return export_as_str(m);
+        const char* str = export_as_str(m);
+        delete m;
+        return str;
     }
 
     const char* matrix_determinant_closed_form_JS_interact(int dimension)
     {
         Matrix* m = populate_matrix(dimension);
-        return matrix_determinant_closed_form(m).c_str();
+        const char* str = matrix_determinant_closed_form(m).c_str();
+        delete m;
+        return str;
     }
 }
 
 int main()
 {
-    const char* output = matrix_inverse_closed_form_JS_interact(4);
+    const char* output = matrix_inverse_closed_form_JS_interact(11);
+    char ch = 1;
+    string test = output;
+    cout <<test; // these outputs are huge...................
     return 1;
 }
