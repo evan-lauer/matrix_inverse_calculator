@@ -1,7 +1,7 @@
 # Matrix Inverse Calculator
 By Evan Lauer
 
-The basic code (`matrix_inverse_web.cpp`) is written in C++. The web interface uses Emscripten to compile C++ to Javascript, which is then leveraged by `index.html` to create the web view.
+The basic code (`matrix_inverse_web.cpp`, `inverse_closed_form.cpp`, and `inverse_real_valued.cpp`) is written in C++. The web interface uses Emscripten to compile C++ to Javascript, which is then leveraged by `matrix_inverse_calculator.html` to create the web view.
 ## Overview
 This project is an online calculator which achieves two objectives: [1] Calculate the closed-form inverse equation for a general matrix of a given size and [2] Calculate the actual inverse of a real-valued matrix.
 
@@ -33,8 +33,10 @@ This formula is then altered by each higher-order stack according to the rules o
 Once the determinant formula for each matrix entry is found, a new matrix is populated with these entries and transposed. To find the (i, j) entry of the inverse matrix, you divide the formula in the new matrix by the determinant formula for the larger matrix. Whew.
 
 ## Goals
-1. Add a web interface for operation [1].
-2. Split `matrix_inverse_web.cpp` into two files--one for operation [1] and another for [2]. This would greatly boost the speed of operation [2], which is much less computationally intense.
-3. Compile to .wasm instead of .js
-4. Figure out how to use git with cPanel hosting for true web version control
-5. Cache formulas below a certain size for operation [1].
+1. Add a web interface for operation [1]---IN PROGRESS
+2. Compile to .wasm instead of .js
+3. Cache formulas below a certain size for operation [1].
+
+## Recent completed changes
+1. Use git version control with cPanel hosting
+2. Split operations [1] and [2] into separate functions, files, and front-end interfaces for faster computing time.
