@@ -36,11 +36,12 @@
     <div id="calculatorHeader">
         <h1>Matrix Inverse Calculator</h1>
 
-        <p>This calculator will find the inverse of the given matrix. Enter integer or decimal values in the boxes
-            below.</p>
+        <h2>This calculator will find the inverse of the given matrix. Enter integer or decimal values in the boxes
+            below.</h2>
     </div>
 
-    <div id="sizemenu"><select id="matrixSize">
+    <div id="sizemenu">
+        <select id="matrixSize">
             <option value="3">3 x 3</option>
             <option value="4">4 x 4</option>
             <option value="5">5 x 5</option>
@@ -52,9 +53,10 @@
             <option value="11">11 x 11</option>
             <option value="12">12 x 12</option>
             <option value="13">13 x 13</option>
-        </select><button id="createMatrix" onclick="createMatrix()">Create Matrix</button></div>
-
-    <p><button id="enterBtn" onclick="findAndPrintInverse()">Submit</button></p>
+        </select>
+        <button id="createMatrix" onclick="createMatrix()">Create Matrix</button>
+        <button id="enterBtn" onclick="findAndPrintInverse()">Submit</button>
+    </div>
 
     <footer>
         <div id="footerScripts">
