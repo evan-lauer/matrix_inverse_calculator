@@ -34,6 +34,7 @@ Once the determinant formula for each matrix entry is found, a new matrix is pop
 1. Add a web interface for operation [1]---IN PROGRESS
 2. Compile to .wasm instead of .js
 3. Cache formulas below a certain size for operation [1].
+4. Finish integration with [my personal site](evanlauer.sites.carleton.edu) (currently under construction).
 
 ## Recent completed changes
 1. Use git version control with cPanel hosting
