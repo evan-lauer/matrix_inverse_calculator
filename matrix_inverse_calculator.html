@@ -3,8 +3,13 @@
 <head><meta charset="us-ascii">
 	<title>Matrix Inverse Calculator</title>
 	<link href="/repositories/matrix_inverse_calculator/matrix_inverse_calculator.css" rel="stylesheet" />
-	<link href="../sites.carleton_home/base_styles.css" rel="stylesheet"><!--<link href="/repositories/sites.carleton_home/base_styles.css" rel="stylesheet">--><script type="text/javascript" src="index.js"></script><script>
-        matrixInverse = Module.cwrap('inverse_from_input_string', 'string', ['string']); </script>
+	<link href="../sites.carleton_home/base_styles.css" rel="stylesheet"><!--<link href="/repositories/sites.carleton_home/base_styles.css" rel="stylesheet">-->
+    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="real_valued_emsdk/inverse_real_valued.js"></script>
+    <script>
+        matrixInverse = Module.cwrap('inverse_from_input_string', 'string', ['string']);
+        matrixInverseRV = Module.cwrap('matrix_inverse_JS_interact', 'string', ['string']);
+    </script>
 </head>
 <body>
 <p>&nbsp;
@@ -19,7 +24,8 @@
 	<li><a class="btn" href="blog.html">Blog</a></li>
 	<li>
 	<div class="dropdown"><a class="dropBtn" id="selected">Code Projects</a>
-	<div class="dropContent"><a href="/index.html" id="selected">Matrix Inverse Calculator</a> <!--Soon replace path with public_html/repositories/matrix_inverse_calculator/matrix_inverse_calculator.html--> <a href="poker.html">Poker</a></div>
+	<div class="dropContent"><a href="/index.html" id="selected">Matrix Inverse Calculator</a> <!--Soon replace path with public_html/repositories/matrix_inverse_calculator/matrix_inverse_calculator.html-->
+        <a href="poker.html">Poker</a></div>
 	</div>
 	</li>
 	<li><a class="btn" href="contact.html">Contact me!</a></li>
@@ -32,26 +38,35 @@
 <h2>This calculator will find the inverse of the given matrix. Enter integer or decimal values in the boxes below.</h2>
 </div>
 
-<div id="sizemenu"><select id="matrixSize"><option value="3">3 x 3</option><option value="4">4 x 4</option><option value="5">5 x 5</option><option value="6">6 x 6</option><option value="7">7 x 7</option><option value="8">8 x 8</option><option value="9">9 x 9</option><option value="10">10 x 10</option><option value="11">11 x 11</option><option value="12">12 x 12</option><option value="13">13 x 13</option> </select><button id="createMatrix" onclick="createMatrix()">Create Matrix</button><button id="enterBtn" onclick="findAndPrintInverse()">Submit</button></div>
+<div id="sizemenu">
+    <select id="matrixSize"><option value="3">3 x 3</option><option value="4">4 x 4</option><option value="5">5 x 5</option><option value="6">6 x 6</option><option value="7">7 x 7</option><option value="8">8 x 8</option><option value="9">9 x 9</option><option value="10">10 x 10</option><option value="11">11 x 11</option><option value="12">12 x 12</option><option value="13">13 x 13</option> </select>
+    <a id="createMatrix" onclick="createMatrix()">Create Matrix</a>
+    <a id="enterBtn" onclick="findAndPrintInverse()">Submit</a>
+</div>
 
 <footer>
 <div id="footerScripts"><script id="createMatrix">  // Builds matrix text boxes, deletes old ones
-            function createMatrix() {
+            function createMatrix()
+            {
                 if (document.getElementById("a11"))
-{
-                for (var i = 0; i < dimension; ++i) {
-                    for (var j = 0; j < dimension; ++j) {
-                        var tBox = document.getElementById(entryStr(i, j));
-                        if (!tBox) {
-                            break;
-                        } else {
-                            tBox.parentNode.removeChild(tBox);
+                {
+                    for (var i = 0; i < dimension; ++i) {
+                        for (var j = 0; j < dimension; ++j) {
+
+
+                            var tBox = document.getElementById(entryStr(i, j));
+                            if (!tBox) {
+                                break;
+                            } else {
+                                tBox.parentNode.removeChild(tBox);
+                            }
+
+
                         }
+                        var lineBreak = document.getElementById("break");
+                        lineBreak.parentNode.removeChild(lineBreak);
                     }
-                    var lineBreak = document.getElementById("break");
-                    lineBreak.parentNode.removeChild(lineBreak);
                 }
-}
 
                 // location.reload();
                 
@@ -75,7 +90,8 @@
             createMatrix();
             var delimiter = ",";
 
-            const inputString = function getInput() { // Returns a string representing the user input
+            const inputString = function getInput() // Returns a string representing the user input
+            {    
                 var ret = "";
                 for (var i = 0; i < dimension; ++i) {
                     for (var j = 0; j < dimension; ++j) {
@@ -87,8 +103,9 @@
                 return ret;
             };
 
-            const inverseString = function getInverse() { // Returns the string representing the inverse or ""
-                var ret = matrixInverse(inputString());
+            const inverseString = function getInverse()
+            { // Returns the string representing the inverse or ""
+                var ret = matrixInverseRV(inputString());
                 return ret;
             };
 
