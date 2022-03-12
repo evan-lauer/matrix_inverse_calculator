@@ -1,0 +1,4 @@
+Inverse_real_valued.cpp compile command:
+
+    emcc inverse_real_valued.cpp -o inverse_real_valued.html -s EXPORTED_FUNCTIONS=_matrix_inverse_JS_interact
+    -s EXPORTED_RUNTIME_METHODS=ccall,cwrap -s ALLOW_MEMORY_GROWTH=1

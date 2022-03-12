@@ -4,10 +4,10 @@
 	<title>Matrix Inverse Calculator</title>
 	<link href="/repositories/matrix_inverse_calculator/matrix_inverse_calculator.css" rel="stylesheet" />
 	<link href="../sites.carleton_home/base_styles.css" rel="stylesheet"><!--<link href="/repositories/sites.carleton_home/base_styles.css" rel="stylesheet">-->
-    <script type="text/javascript" src="index.js"></script>
+    <!--<script type="text/javascript" src="index.js"></script>-->
     <script type="text/javascript" src="real_valued_emsdk/inverse_real_valued.js"></script>
     <script>
-        matrixInverse = Module.cwrap('inverse_from_input_string', 'string', ['string']);
+        //matrixInverse = Module.cwrap('inverse_from_input_string', 'string', ['string']);
         matrixInverseRV = Module.cwrap('matrix_inverse_JS_interact', 'string', ['string']);
     </script>
 </head>
@@ -60,6 +60,7 @@
                             } else {
                                 tBox.parentNode.removeChild(tBox);
                             }
+                            tBox = null; 
 
 
                         }
@@ -97,6 +98,7 @@
                     for (var j = 0; j < dimension; ++j) {
                         var entryName = entryStr(i, j);
                         ret += document.getElementById(entryName).value + delimiter;
+                        entryName=null;
                     }
                     if (i + 1 < dimension) { ret += "\n" + delimiter; }
                 }

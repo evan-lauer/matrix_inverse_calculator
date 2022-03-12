@@ -94,6 +94,7 @@ double matrix_determinant(Matrix* m)
         {
             determinant += (minor_matrix_determinant) * entry;
         }
+        delete minor_matrix;
     }
     return determinant;
 }
@@ -193,6 +194,7 @@ const char* export_matrix_as_string(Matrix* m)
         }
         str += "\n,";
     }
+    delete m;
     return str.c_str();
 }
 
@@ -237,6 +239,7 @@ extern "C"
     {
         Matrix* matrix = decode_input_string(matrix_str);
         Matrix* inverse = matrix_inverse(matrix);
+        delete matrix;
         return export_matrix_as_string(inverse);
     }
 }
