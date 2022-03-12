@@ -5,8 +5,6 @@ The basic code (`matrix_inverse_web.cpp`, `inverse_closed_form.cpp`, and `invers
 ## Overview
 This project is an online calculator which achieves two objectives: [1] Calculate the closed-form inverse equation for a general matrix of a given size and [2] Calculate the actual inverse of a real-valued matrix.
 
-To test the code in C++, compile and run `matrix_inverse_web.cpp`. The `main` method of this function has a bare-bones command-line interface which facilitates rapid testing (as opposed to hard-coding 2d matrices). This interface will solve for both [1] and [2].
-
 To see the code in-action in a web calculator, visit [my blog](https://evanlauer.sites.carleton.edu/index.html) (currently under construction). This interface currently only allows for [2].
 
 ## The math
@@ -36,6 +34,7 @@ Once the determinant formula for each matrix entry is found, a new matrix is pop
 1. Add a web interface for operation [1]---IN PROGRESS
 2. Compile to .wasm instead of .js
 3. Cache formulas below a certain size for operation [1].
+4. Finish integration with [my personal site](https://evanlauer.sites.carleton.edu) (currently under construction).
 
 ## Recent completed changes
 1. Use git version control with cPanel hosting
