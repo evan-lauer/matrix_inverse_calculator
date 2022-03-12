@@ -1,149 +1,123 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="utf-8">
-    <title>Matrix Inverse Calculator</title>
-    <link href="/repositories/matrix_inverse_calculator/matrix_inverse_calculator.css" rel="stylesheet">
-    <link href="../sites.carleton_home/base_styles.css"rel="stylesheet"><!--<link href="/repositories/sites.carleton_home/base_styles.css" rel="stylesheet">-->
-    <script type="text/javascript" src="index.js"></script>
-    <script>
+<head><meta charset="us-ascii">
+	<title>Matrix Inverse Calculator</title>
+	<link href="/repositories/matrix_inverse_calculator/matrix_inverse_calculator.css" rel="stylesheet" />
+	<link href="../sites.carleton_home/base_styles.css" rel="stylesheet"><!--<link href="/repositories/sites.carleton_home/base_styles.css" rel="stylesheet">--><script type="text/javascript" src="index.js"></script><script>
         matrixInverse = Module.cwrap('inverse_from_input_string', 'string', ['string']); </script>
 </head>
-
 <body>
-    <body>
-        <h1>Hi, I'm Evan Lauer.</h1>
-        <h2>This is my website.</h2>
-        <nav>
-            <ul>
-                <li> <a class="btn" href="../sites.carleton_home/index.html">Home</a> </li>
-                <li> <a class="btn" href="blog.html">Blog</a> </li>
-                <li> <div class="dropdown">
-                        <a class="dropBtn" id="selected">Code Projects</a>
-                        <div class="dropContent">
-                            <a id="selected" href="/index.html">Matrix Inverse Calculator</a> <!--Soon replace path with public_html/repositories/matrix_inverse_calculator/matrix_inverse_calculator.html-->
-                            <a href="poker.html">Poker</a>
-                        </div>
-                    </div>  
-                </li>
-                <li> <a class="btn" href="contact.html">Contact me!</a> </li>
-            </ul>
-        </nav>
+<p>&nbsp;
+<h1>Hi, I&#39;m Evan Lauer.</h1>
+</p>
 
+<h2>This is my website.</h2>
 
+<nav>
+<ul>
+	<li><a class="btn" href="../sites.carleton_home/index.html">Home</a></li>
+	<li><a class="btn" href="blog.html">Blog</a></li>
+	<li>
+	<div class="dropdown"><a class="dropBtn" id="selected">Code Projects</a>
+	<div class="dropContent"><a href="/index.html" id="selected">Matrix Inverse Calculator</a> <!--Soon replace path with public_html/repositories/matrix_inverse_calculator/matrix_inverse_calculator.html--> <a href="poker.html">Poker</a></div>
+	</div>
+	</li>
+	<li><a class="btn" href="contact.html">Contact me!</a></li>
+</ul>
+</nav>
 
-    <div id="calculatorHeader">
-        <h1>Matrix Inverse Calculator</h1>
+<div id="calculatorHeader">
+<h1>Matrix Inverse Calculator</h1>
 
-        <h2>This calculator will find the inverse of the given matrix. Enter integer or decimal values in the boxes
-            below.</h2>
-    </div>
+<h2>This calculator will find the inverse of the given matrix. Enter integer or decimal values in the boxes below.</h2>
+</div>
 
-    <div id="sizemenu">
-        <select id="matrixSize">
-            <option value="3">3 x 3</option>
-            <option value="4">4 x 4</option>
-            <option value="5">5 x 5</option>
-            <option value="6">6 x 6</option>
-            <option value="7">7 x 7</option>
-            <option value="8">8 x 8</option>
-            <option value="9">9 x 9</option>
-            <option value="10">10 x 10</option>
-            <option value="11">11 x 11</option>
-            <option value="12">12 x 12</option>
-            <option value="13">13 x 13</option>
-        </select>
-        <button id="createMatrix" onclick="createMatrix()">Create Matrix</button>
-        <button id="enterBtn" onclick="findAndPrintInverse()">Submit</button>
-    </div>
+<div id="sizemenu"><select id="matrixSize"><option value="3">3 x 3</option><option value="4">4 x 4</option><option value="5">5 x 5</option><option value="6">6 x 6</option><option value="7">7 x 7</option><option value="8">8 x 8</option><option value="9">9 x 9</option><option value="10">10 x 10</option><option value="11">11 x 11</option><option value="12">12 x 12</option><option value="13">13 x 13</option> </select><button id="createMatrix" onclick="createMatrix()">Create Matrix</button><button id="enterBtn" onclick="findAndPrintInverse()">Submit</button></div>
 
-    <footer>
-        <div id="footerScripts">
-            <script id="createMatrix">  // Builds matrix text boxes, deletes old ones
-                function createMatrix() {
-                    if (document.getElementById("a11"))
-                    {
-                        for (var i = 0; i < dimension; ++i) {
-                            for (var j = 0; j < dimension; ++j) {
-                                var tBox = document.getElementById(entryStr(i, j));
-                                if (!tBox) {
-                                    break;
-                                } else {
-                                    tBox.parentNode.removeChild(tBox);
-                                }
-                            }
-                            document.body.removeChild();
+<footer>
+<div id="footerScripts"><script id="createMatrix">  // Builds matrix text boxes, deletes old ones
+            function createMatrix() {
+                if (document.getElementById("a11"))
+{
+                for (var i = 0; i < dimension; ++i) {
+                    for (var j = 0; j < dimension; ++j) {
+                        var tBox = document.getElementById(entryStr(i, j));
+                        if (!tBox) {
+                            break;
+                        } else {
+                            tBox.parentNode.removeChild(tBox);
                         }
                     }
+                    var lineBreak = document.getElementById("break");
+                    lineBreak.parentNode.removeChild(lineBreak);
+                }
+}
 
-                    // location.reload();
-
-                    dimension = parseInt(document.getElementById("matrixSize").value);
-                    if (dimension == -1) dimension = 3;
-                    for (var i = 0; i < dimension; ++i) {
-                        for (var j = 0; j < dimension; ++j) {
-                            var tBox = document.createElement("INPUT");
-                            tBox.setAttribute("type", "text");
-                            tBox.setAttribute("id", entryStr(i, j));
-                            tBox.setAttribute("style", "width: 30px");
-                            document.body.appendChild(tBox);
-                        }
-                        document.body.appendChild(document.createElement("br"));
+                // location.reload();
+                
+                dimension = parseInt(document.getElementById("matrixSize").value);
+                if (dimension == -1) dimension = 3;
+                for (var i = 0; i < dimension; ++i) {
+                    for (var j = 0; j < dimension; ++j) {
+                        var tBox = document.createElement("INPUT");
+                        tBox.setAttribute("type", "text");
+                        tBox.setAttribute("id", entryStr(i, j));
+                        tBox.setAttribute("style", "width: 30px");
+                        document.body.appendChild(tBox);
                     }
-                };
-            </script>
-            <script> // Creates default 3x3 matrix
-                var dimension = 3;
-                createMatrix();
-                var delimiter = ",";
+                    var lineBreak = document.createElement("br");
+                    lineBreak.setAttribute("id","break");
+                    document.body.appendChild(lineBreak);
+                }
+            };
+        </script><script> // Creates default 3x3 matrix
+            var dimension = 3;
+            createMatrix();
+            var delimiter = ",";
 
-                const inputString = function getInput() { // Returns a string representing the user input
-                    var ret = "";
-                    for (var i = 0; i < dimension; ++i) {
-                        for (var j = 0; j < dimension; ++j) {
-                            var entryName = entryStr(i, j);
-                            ret += document.getElementById(entryName).value + delimiter;
-                        }
-                        if (i + 1 < dimension) { ret += "\n" + delimiter; }
+            const inputString = function getInput() { // Returns a string representing the user input
+                var ret = "";
+                for (var i = 0; i < dimension; ++i) {
+                    for (var j = 0; j < dimension; ++j) {
+                        var entryName = entryStr(i, j);
+                        ret += document.getElementById(entryName).value + delimiter;
                     }
-                    return ret;
-                };
+                    if (i + 1 < dimension) { ret += "\n" + delimiter; }
+                }
+                return ret;
+            };
 
-                const inverseString = function getInverse() { // Returns the string representing the inverse or ""
-                    var ret = matrixInverse(inputString());
-                    return ret;
-                };
+            const inverseString = function getInverse() { // Returns the string representing the inverse or ""
+                var ret = matrixInverse(inputString());
+                return ret;
+            };
 
-                function findAndPrintInverse() // Calls the above methods, alerts the answer
-                {
-                    var inverseMatrixString = inverseString();
+            function findAndPrintInverse() // Calls the above methods, alerts the answer
+            {
+                var inverseMatrixString = inverseString();
 
-                    var outputStr = "";
-                    var tokenArray = inverseMatrixString.split(delimiter);
-                    for (var i = 0; i < tokenArray.length; ++i) {
-                        outputStr += tokenArray[i];
-                        if (tokenArray[i] != "\n") { outputStr += "  "; }
-                    }
-                    if (inverseMatrixString.length == 0) {
-                        alert("The matrix has no inverse!");
-                    }
-                    else {
-                        alert(outputStr);
-                    }
-                };
+                var outputStr = "";
+                var tokenArray = inverseMatrixString.split(delimiter);
+                for (var i = 0; i < tokenArray.length; ++i) {
+                    outputStr += tokenArray[i];
+                    if (tokenArray[i] != "\n") { outputStr += "  "; }
+                }
+                if (inverseMatrixString.length == 0) {
+                    alert("The matrix has no inverse!");
+                }
+                else {
+                    alert(outputStr);
+                }
+            };
 
 
-                function entryStr(row, col) // 0 indexed
-                {
-                    let rowStr = (row + 1).toString();
-                    let colStr = (col + 1).toString();
-                    return "a" + rowStr + colStr;
-                };
-            </script>
-        </div>
-        <!--end footer scripts-->
-    </footer>
+            function entryStr(row, col) // 0 indexed
+            {
+                let rowStr = (row + 1).toString();
+                let colStr = (col + 1).toString();
+                return "a" + rowStr + colStr;
+            };
+        </script></div>
+<!--end footer scripts--></footer>
 </body>
-
 </html>
