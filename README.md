@@ -31,11 +31,12 @@ This formula is then altered by each higher-order stack according to the rules o
 Once the determinant formula for each matrix entry is found, a new matrix is populated with these entries and transposed. To find the (i, j) entry of the inverse matrix, you divide the formula in the new matrix by the determinant formula for the larger matrix. Whew.
 
 ## Goals
-1. Add a web interface for operation [1]---IN PROGRESS
-2. Compile to .wasm instead of .js
+1. Use a better algorithm -- row reduction instead of Laplace expansion
+2. Add a web interface for operation [1]---IN PROGRESS
 3. Cache formulas below a certain size for operation [1].
 4. Finish integration with [my personal site](https://evanlauer.sites.carleton.edu) (currently under construction).
 
 ## Recent completed changes
 1. Use git version control with cPanel hosting
 2. Split operations [1] and [2] into separate functions, files, and front-end interfaces for faster computing time.
+3. Compile to WASM instead of JS
